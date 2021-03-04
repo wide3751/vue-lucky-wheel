@@ -56,7 +56,7 @@ $duration: 3s;
 .game-status {
   position: absolute;
   left: 2%;
-  top: 4%;
+  top: 10%;
   font-size: 2rem;
   color: $secondary-color;
   display: flex;
@@ -255,7 +255,7 @@ $num: 20;
   width: 100px;
   align-items: center;
   flex-direction: column;
-  font-size: 2rem;
+  font-size: 3.5rem;
   font-weight: bold;
   transform-origin: center center;
   // 16輪盤
@@ -294,7 +294,7 @@ $num: 20;
   }
 
   > i {
-    font-size: 4rem;
+    font-size: 2rem;
   }
 }
 
@@ -480,4 +480,12 @@ $num: 20;
 .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
+}
+
+.logo{
+  position: absolute;
+  display: flex;
+  z-index: 900;
+  left: 2%;
+  top: 2%;
 }

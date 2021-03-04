@@ -3,7 +3,7 @@
     el: '#app',
     data: {
       prizes: [],
-      prizes_2017: [],
+      prizes_2021: [],
       prizes_2018: [],
       prize_name: '',
       prize_icon: '',
@@ -14,9 +14,9 @@
       start_deg: 0,
       current_deg: 0,
       index: 0,
-      current_year: 2017,
+      current_year: 2021,
       duration: 3000,
-      time_remaining: 20,
+      time_remaining: 1,
       num: 0,
       numbers: [],//紀錄還有獎品的編號
       isToggle: false,//顯示隱藏按鈕
@@ -36,19 +36,19 @@
       // 判斷轉盤 class
       containerClass() {
         let vm = this
-        return vm.current_year === 2017 ? 'container' : 'container container-large'
+        return vm.current_year === 2021 ? 'container' : 'container container-large'
       },
       itemClass() {
         let vm = this
-        return vm.current_year === 2017 ? 'item item-skew' : 'item item-skew-large'
+        return vm.current_year === 2021 ? 'item item-skew' : 'item item-skew-large'
       },
       contentClass() {
         let vm = this
-        return vm.current_year === 2017 ? 'item-content' : 'item-content item-content-large'
+        return vm.current_year === 2021 ? 'item-content' : 'item-content item-content-large'
       },
       countClass() {
         let vm = this
-        return vm.current_year === 2017 ? 'count' : 'count count-large'
+        return vm.current_year === 2021 ? 'count' : 'count count-large'
       }
     },
     methods: {
@@ -68,8 +68,8 @@
       restart() {
         let vm = this
         vm.$refs.item[vm.index].classList.value = vm.itemClass
-        if (vm.current_year === 2017) {
-          vm.time_remaining = 20
+        if (vm.current_year === 2021) {
+          vm.time_remaining = 1
           vm.reset()
           vm.initPrize()
         } else if (vm.current_year === 2018) {
@@ -97,10 +97,10 @@
         let vm = this
         axios.get('./prize20.json')
           .then(function (response) {
-            vm.prizes_2017 = JSON.parse(response.request.responseText)
-            vm.num = vm.prizes_2017.length
+            vm.prizes_2021 = JSON.parse(response.request.responseText)
+            vm.num = vm.prizes_2021.length
             vm.degree(vm.num)
-            vm.prizes = vm.prizes_2017
+            vm.prizes = vm.prizes_2021
             vm.numberArray()
           })
           .catch(function (error) {
@@ -197,7 +197,7 @@
         console.log('1.剩餘牌號', vm.numbers)
 
         // 預先旋轉四圈
-        let circle = 4
+        let circle = 8
         let degree
         //degree=初始角度 + 旋轉4圈 + 獎品旋轉角度[隨機數] - 餘數
         degree = vm.start_deg + circle * 360 + vm.prize_rotate[vm.index] - vm.start_deg % 360
@@ -205,7 +205,7 @@
         // 將初始角度 start_deg:0度 = 旋轉後的角度 degree，下次執行從當下角度開始
         vm.start_deg = degree
         //綁定旋轉角度到指針
-        vm.current_year === 2017 ? vm.rotate_deg = `rotate(${degree}deg)` : vm.rotate_deg = `rotate(${degree - vm.each_deg / 2}deg)`
+        vm.current_year === 2021 ? vm.rotate_deg = `rotate(${degree}deg)` : vm.rotate_deg = `rotate(${degree - vm.each_deg / 2}deg)`
 
         vm.prize_transition = `all ${vm.duration / 1000}s cubic-bezier(0.42, 0, 0.2, 0.91)`
         vm.time_remaining--
@@ -215,10 +215,10 @@
         let remainder = vm.start_deg % 360
         if (remainder <= 0) {
           // 為了不產生負數或0，加360
-          vm.current_year === 2017 ? vm.current_deg = remainder + 360 : vm.current_deg = remainder + 360 - vm.each_deg / 2
+          vm.current_year === 2021 ? vm.current_deg = remainder + 360 : vm.current_deg = remainder + 360 - vm.each_deg / 2
 
         } else if (remainder > 0) {
-          vm.current_year === 2017 ? vm.current_deg = remainder : vm.current_deg = remainder - vm.each_deg / 2
+          vm.current_year === 2021 ? vm.current_deg = remainder : vm.current_deg = remainder - vm.each_deg / 2
         }
         console.log('2.執行旋轉', degree, 'index', vm.index)
 
